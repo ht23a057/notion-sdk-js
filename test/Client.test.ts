@@ -106,7 +106,9 @@ describe("Notion SDK Client", () => {
       expect(firstCallParams?.headers).not.toContain("Content-Type")
 
       const body = firstCallParams?.body as FormData
-      const formData = Object.fromEntries(body.entries())
+      //const formData = Object.fromEntries(body.entries())
+      const formData = Object.fromEntries((body as unknown as FormData & { entries(): Iterable<[string, any]> }).entries());
+
 
       expect(formData["part_number"]).toEqual("2")
 
